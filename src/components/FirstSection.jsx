@@ -1,4 +1,4 @@
-import backgroundImage from "../assets/logos/cover9.PNG";
+import backgroundImage from "../assets/logos/cover9.png";
 import LenIcon from "../assets/first_section/len.png";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
