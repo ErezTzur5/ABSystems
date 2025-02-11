@@ -13,7 +13,7 @@ const FirstSection = () => {
   return (
     <section
       id="home"
-      className="relative w-full h-screen flex items-center px-4 md:px-8"
+      className="relative w-full min-h-screen flex items-center justify-center px-4 md:px-8 :"
     >
       {/* Background Image - Mobile */}
       <div
@@ -40,19 +40,19 @@ const FirstSection = () => {
       {/* Overlay for readability */}
       <div className="absolute inset-0 bg-black bg-opacity-30"></div>
 
-      {/* Card Positioned on the Right in Desktop Mode */}
+      {/* Responsive Card */}
       <motion.div
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
-        className="relative z-10 w-full flex justify-center md:justify-end my-4"
+        className="relative z-10 w-full flex justify-center md:justify-end my-6"
       >
         <Card
           sx={{
-            width: { xs: "95%", sm: "70%", md: "50%" }, // Adjusted for better spacing
-            maxWidth: 600, // Ensures content fits
+            width: { xs: "90%", sm: "75%", md: "50%" }, // Ensures proper spacing
+            maxWidth: 550, // Limits max width for better visuals
             mx: "auto",
-            mr: { md: "8%" }, // Moves the card slightly left in desktop mode
+            mr: { md: "8%" }, // Aligns properly on desktop
 
             // Glassmorphic effect
             background:
@@ -60,13 +60,13 @@ const FirstSection = () => {
             backdropFilter: "blur(15px)",
             textAlign: { xs: "center", md: "right" }, // Centered for mobile, right-aligned for desktop
 
-            // Enhanced shadow and border for visibility
+            // Shadow & border
             border: "2px solid rgba(255, 255, 255, 0.4)",
             boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
 
-            // Rounded corners & spacing
+            // Rounded corners & padding
             borderRadius: "1rem",
-            p: { xs: 3, sm: 4, md: 5 },
+            p: { xs: 2, sm: 3, md: 4 },
 
             // Hover effect
             transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -81,18 +81,35 @@ const FirstSection = () => {
             <Typography
               component="h2"
               sx={{
-                fontSize: { xs: "1.4rem", sm: "2rem", md: "2.4rem" }, // Slightly reduced mobile size
+                fontSize: {
+                  xs: "1.4rem",
+                  sm: "1.6rem",
+                  md: "1.8rem",
+                  lg: "2rem",
+                  xl: "2.2rem",
+                },
                 fontWeight: "bold",
                 mb: 3,
                 color: "#F8F9FA",
                 textShadow: `
-                0px 0px 10px red, 
-                0px 0px 20px red, 
-                0px 0px 40px red, 
-                0px 0px 80px red
-              `,                whiteSpace: "nowrap", // Ensures title stays in one row
-                wordSpacing: "0.15rem", // Avoids letter overlap
-                textAlign: "center", // Ensures full visibility in mobile
+                  0px 0px 10px red, 
+                  0px 0px 20px red, 
+                  0px 0px 40px red, 
+                  0px 0px 80px red
+                `,
+                textAlign: "center", // Centered for all screens
+                whiteSpace: {
+                  xs: "normal",
+                  sm: "normal",
+                  md: "nowrap",
+                  lg: "nowrap",
+                  xl: "nowrap",
+                },
+                maxWidth: "100%", // Ensures the title remains within the card
+                wordBreak: "break-word", // Allows breaking when necessary
+                "@media (max-width: 1050px)": {
+                  whiteSpace: "normal", // Wraps the title below 1050px
+                },
               }}
             >
               בניית תשתיות ומצלמות אבטחה
@@ -102,17 +119,20 @@ const FirstSection = () => {
             <Typography
               paragraph
               sx={{
-                fontSize: { xs: "1rem", sm: "1.2rem", md: "1.4rem" },
+                fontSize: { xs: "1rem", sm: "1.2rem", md: "1.3rem" },
                 fontWeight: "bold",
                 color: "#F8F9FA",
                 textShadow: `
-                0px 0px 10px red, 
-                0px 0px 20px red, 
-                0px 0px 40px red, 
-                0px 0px 80px red
-              `, 
+                  0px 0px 10px red, 
+                  0px 0px 20px red, 
+                  0px 0px 40px red, 
+                  0px 0px 80px red
+                `,
                 direction: "rtl",
-                unicodeBidi: "plaintext", // Fixes punctuation in Hebrew
+                unicodeBidi: "plaintext", // Fixes punctuation issues in Hebrew
+                "@media (max-width: 320px)": {
+                  fontSize: "0.9rem",
+                },
               }}
             >
               כמעט כל בית עסק מבקש לדאוג לביטחון לקוחותיו ורכושו באמצעות מצלמות
@@ -123,13 +143,15 @@ const FirstSection = () => {
             {/* Hebrew bullet list (RTL) with Lens Icon on the Right */}
             <List
               sx={{
-                fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.6rem"},
+                fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.4rem" },
                 fontWeight: "bold",
                 color: "#1E3A8A",
-                textShadow: `0px 0px 1px purple
-                `,
+                textShadow: "0px 0px 1px purple",
                 direction: "rtl",
                 unicodeBidi: "plaintext",
+                "@media (max-width: 320px)": {
+                  fontSize: "0.85rem",
+                },
               }}
             >
               {[
@@ -147,21 +169,21 @@ const FirstSection = () => {
                   sx={{
                     padding: 0,
                     textAlign: "right",
-                    flexDirection: "row", // Ensures icon stays on the right
+                    flexDirection: "row",
                     alignItems: "center",
-                    justifyContent: "flex-start", // Ensures text starts correctly
+                    justifyContent: "flex-start",
                   }}
                 >
                   <ListItemIcon
                     sx={{
                       minWidth: "auto",
-                      marginRight: "8px", // Pushes text left to keep icon on the right
+                      marginRight: "8px",
                     }}
                   >
                     <img
                       src={LenIcon}
                       alt="Lens icon"
-                      style={{ width: 20, height: 20 ,marginLeft:6}}
+                      style={{ width: 18, height: 18, marginLeft: 6 }}
                     />
                   </ListItemIcon>
 

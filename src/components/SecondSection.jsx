@@ -163,7 +163,10 @@ const SecondSection = () => {
                     fontWeight="bold"
                     gutterBottom
                     textAlign="center"
-                    sx={{ color: "#DC2626" }} // 🔴 Red accent
+                    
+                    sx={{ color: "#DC2626",
+                      fontSize: "1.4rem",
+                    }} // 🔴 Red accent
                   >
                     {card.title}
                   </Typography>

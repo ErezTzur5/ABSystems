@@ -4,10 +4,13 @@ import { Card, CardContent } from "@mui/material";
 import emailjs from "emailjs-com";
 import { motion, useInView } from "framer-motion";
 import SubmitButton from "./ui/SubmitButton";
+import { useState } from "react";
+import ToastNotification from "./ui/ToastNotification";
 
 const ContactUs = () => {
   const formRef = useRef();
   const sectionRef = useRef(null);
+  const [toast, setToast] = useState(null);
 
   const isInView = useInView(sectionRef, { triggerOnce: false, amount: 0.3 });
 
@@ -21,12 +24,15 @@ const ContactUs = () => {
     emailjs.sendForm(serviceId, templateId, formRef.current, publicKey).then(
       (result) => {
         console.log("SUCCESS:", result.text);
-        alert("טופס נשלח בהצלחה!");
+        setToast({ message: "✅ טופס נשלח בהצלחה!", type: "success" });
         e.target.reset();
       },
       (error) => {
         console.error("ERROR:", error.text);
-        alert("אירעה שגיאה בשליחת הטופס. אנא נסו שנית מאוחר יותר.");
+        setToast({
+          message: "❌ אירעה שגיאה בשליחת הטופס. נסה שוב מאוחר יותר.",
+          type: "error",
+        });
       }
     );
   };
@@ -36,9 +42,17 @@ const ContactUs = () => {
       id="contact"
       ref={sectionRef}
       dir="rtl"
-      className="w-full pb-10 px-4 md:px-8 bg-gradient-to-b shadow-lg from-[#374151] to-[#1E3A8A]"
+      className="w-full pb-10 px-4 md:px-8 bg-gradient-to-b shadow-lg from-[#374151] to-[#1E3A8A] overflow-hidden" // Prevents overflow
     >
-      <div className="max-w-6xl mx-auto">
+      {toast && (
+        <ToastNotification
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+
+      <div className="max-w-screen-xl mx-auto">
         {/* Title */}
         <motion.div
           initial={{ y: "100%", opacity: 0 }}
@@ -59,14 +73,14 @@ const ContactUs = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="flex flex-col md:flex-row-reverse gap-8 mt-6 md:border md:border-yellow-400 md:p-6 md:rounded-xl md:bg-opacity-10 md:bg-white"
+          className="flex flex-col md:flex-row-reverse gap-8 mt-6 md:border md:border-yellow-400 md:p-6 md:rounded-xl md:bg-opacity-10 md:bg-white max-w-full overflow-x-hidden"
         >
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="md:w-1/2 content-center justify-items-center border border-yellow-400 p-6 rounded-xl bg-opacity-10 bg-white"
+            className="md:w-1/2 content-center justify-items-center border border-yellow-400 p-6 rounded-xl bg-opacity-10 bg-white max-w-full"
           >
             <h3 className="text-2xl font-semibold mb-4 text-gray-100 text-center md:text-right">
               תשארו בקשר איתנו
@@ -92,7 +106,7 @@ const ContactUs = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="md:w-1/2"
+            className="md:w-1/2 max-w-full"
           >
             <Card
               sx={{
