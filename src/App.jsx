@@ -3,7 +3,7 @@ import Navbar from "./components/navbar";
 import FirstSection from "./components/FirstSection";
 import SecondSection from "./components/SecondSection";
 import ContactusSection from "./components/ContactUs";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import SectionTransition from "./components/SectionTransition";
 import WhatsAppButton from "./components/WhatsAppButton";
 import AccessibilityButton from "./components/ui/AccessibilityButton";
