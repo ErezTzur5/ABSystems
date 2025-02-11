@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:800,400");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+@keyframes rotate-the-funk {
+  0% {
+    transform: rotate(360deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes shadow {
+  0% {
+    transform: scale(1) translate(-20%, -10%);
+  }
+  25% {
+    transform: scale(0.5) translate(-20%, -10%);
+  }
+  50% {
+    transform: scale(1) translate(-20%, -10%);
+  }
+  75% {
+    transform: scale(0.5) translate(-20%, -10%);
+  }
+  100% {
+    transform: scale(1) translate(-20%, -10%);
+  }
+}
+
+/* Button Styling */
+.plane-send {
+  font-size: 1.8rem; /* Smaller size */
+  background-color: #6c91c2; /* Blue-Clay */
+  border: 0;
+  border-radius: 0.4rem;
+  padding: 0.8rem 1.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 3px solid #4f6999; /* Darker blue for depth */
+  cursor: pointer;
+  transition: 0.4s border, 0.6s transform;
+  width: 120px;
+  height: 50px;
+  margin: 0 auto; /* Centering the button */
+}
+
+.plane-send .material-icons {
+  transform: rotate(360deg);
+  position: relative;
+  color: white;
+  font-size: 30px; /* Smaller icon */
+  padding: 0.5rem 1rem;
+  transform-origin: top center;
+}
+
+.plane-send .material-icons:before {
+  content: attr(data-content);
+  position: absolute;
+  color: #4f6999; /* Darker blue */
+  left: 50%;
+  top: 50%;
+  transform: scale(1) translate(-20%, -10%);
+  z-index: -1;
+  transform-origin: bottom center;
+}
+
+/* Hover Effects */
+.plane-send:hover {
+  border-bottom: 3px solid #6c91c2;
+  transform: translateY(2px);
+}
+
+.plane-send:hover .material-icons {
+  animation: rotate-the-funk 1.8s forwards;
+}
+
+.plane-send:hover .material-icons:before {
+  animation: shadow 1.8s forwards;
+}
