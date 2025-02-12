@@ -32,7 +32,9 @@ const Footer = () => {
       >
         {/* Column 1: Logo & Description */}
         <div>
-          <h2 className="text-3xl font-extrabold mb-3 text-white">A.B Systems</h2>
+          <h2 className="text-3xl font-extrabold mb-3 text-white">
+            A.B Systems
+          </h2>
           <p className="text-lg text-gray-300">
             הפתרון המתקדם ביותר לאבטחה, בקרה וניהול חכם של מערכות מתקדמות.
           </p>
@@ -40,7 +42,9 @@ const Footer = () => {
 
         {/* Column 2: Quick Links */}
         <div>
-          <h3 className="text-2xl font-semibold mb-4 text-white">קישורים שימושיים</h3>
+          <h3 className="text-2xl font-semibold mb-4 text-white">
+            קישורים שימושיים
+          </h3>
           <ul className="space-y-3">
             <li>
               <button
@@ -71,16 +75,24 @@ const Footer = () => {
 
         {/* Column 3: Contact Information */}
         <div>
-          <h3 className="text-2xl font-semibold mb-4 text-white">תשארו בקשר איתנו</h3>
-          <div className="flex items-center justify-end text-gray-300 text-lg">
+          <h3 className="text-2xl font-semibold mb-4 text-white">
+            תשארו בקשר איתנו
+          </h3>
+
+          {/* Address */}
+          <div className="flex items-center justify-center md:justify-end text-gray-300 text-lg">
             <span className="ml-3">הכישור 30, חולון</span>
             <MapPin className="w-6 h-6 text-yellow-400 ml-3" />
           </div>
-          <div className="flex items-center justify-end text-gray-300 text-lg mt-3">
+
+          {/* Phone */}
+          <div className="flex items-center justify-center md:justify-end text-gray-300 text-lg mt-3">
             <span className="ml-3">055-2853391</span>
             <PhoneIcon className="w-6 h-6 text-yellow-400 ml-3" />
           </div>
-          <div className="flex items-center justify-end text-gray-300 text-lg mt-3">
+
+          {/* Email */}
+          <div className="flex items-center justify-center md:justify-end text-gray-300 text-lg mt-3">
             <span className="ml-3">A.B.Systems7@gmail.com</span>
             <Mail className="w-6 h-6 text-yellow-400 ml-3" />
           </div>

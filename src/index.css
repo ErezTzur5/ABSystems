@@ -146,3 +146,27 @@ button:focus-visible {
   font-weight: 900;
   font-style: normal;
 }
+
+.dpr-175{
+  height: 180vh;
+}
+
+.dpr-150{
+  height: 160vh;
+}
+
+.dpr-125 {
+  height: 150vh;
+}
+
+/* Adjust Card position when dpr-125 is active */
+.dpr-125 .card-adjust {
+  position: relative;
+  top: 10%;
+}
+
+
+.dpr-175 .card-adjust {
+  position: relative;
+  top: 10%;
+}

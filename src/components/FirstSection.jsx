@@ -8,12 +8,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { ListItemIcon } from "@mui/material";
 import { motion } from "framer-motion";
+import useScaleAdjustment from "../hooks/useScaleAdjustment";
 
 const FirstSection = () => {
+  const scaleClass = useScaleAdjustment(); // Detect scale setting
   return (
     <section
       id="home"
-      className="relative w-full min-h-screen flex items-center justify-center px-4 md:px-8 :"
+      className={`relative w-full min-h-screen flex items-center justify-center px-4 md:px-8 ${scaleClass}`}
     >
       {/* Background Image - Mobile */}
       <div
@@ -40,25 +42,29 @@ const FirstSection = () => {
       {/* Overlay for readability */}
       <div className="absolute inset-0 bg-black bg-opacity-30"></div>
 
-      {/* Responsive Card */}
+      {/* Card with dynamic top adjustment */}
       <motion.div
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
         className="relative z-10 w-full flex justify-center md:justify-end my-6"
+        style={{
+          position: scaleClass === "dpr-125" || scaleClass === "dpr-175" ? "relative" : "static",
+          top: scaleClass === "dpr-125" ? "-5%" : scaleClass === "dpr-175" ? "10%" : "auto",
+        }}
       >
         <Card
           sx={{
-            width: { xs: "90%", sm: "75%", md: "50%" }, // Ensures proper spacing
-            maxWidth: 550, // Limits max width for better visuals
+            width: { xs: "90%", sm: "75%", md: "50%" },
+            maxWidth: 550,
             mx: "auto",
-            mr: { md: "8%" }, // Aligns properly on desktop
+            mr: { md: "8%" },
 
             // Glassmorphic effect
             background:
               "linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.25))",
             backdropFilter: "blur(15px)",
-            textAlign: { xs: "center", md: "right" }, // Centered for mobile, right-aligned for desktop
+            textAlign: { xs: "center", md: "right" },
 
             // Shadow & border
             border: "2px solid rgba(255, 255, 255, 0.4)",
@@ -67,6 +73,10 @@ const FirstSection = () => {
             // Rounded corners & padding
             borderRadius: "1rem",
             p: { xs: 2, sm: 3, md: 4 },
+
+            // Dynamic top adjustment
+            position: scaleClass === "dpr-125" ? "relative" : "static",
+            top: scaleClass === "dpr-125" ? "10%" : "auto",
 
             // Hover effect
             transition: "transform 0.3s ease, box-shadow 0.3s ease",

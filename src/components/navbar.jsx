@@ -45,17 +45,60 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
-  // Smooth scrolling function
-  const smoothScrollTo = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 83,
-        behavior: "smooth",
-      });
-    }
-    setIsOpen(false); // Close mobile menu after clicking
-  };
+// Smooth scrolling function with dynamic offset (only for desktops)
+const smoothScrollTo = (id) => {
+  const element = document.getElementById(id);
+  if (!element) return;
+
+  const dpr = window.devicePixelRatio || 1; // Get device pixel ratio
+  const isMobile =
+    /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent) ||
+    window.innerWidth < 768;
+
+  // Skip logic for mobile devices
+  if (isMobile) {
+    console.log(`Skipping scroll adjustment for mobile: ${id}`);
+    window.scrollTo({
+      top: element.offsetTop - 83, // Default mobile offset
+      behavior: "smooth",
+    });
+    setIsOpen(false);
+    return;
+  }
+
+  let offsetAdjustment = 83; // Default offset for 100% scaling
+
+  // Adjust offset per screen scaling and per section
+  if (dpr >= 2.0) {
+    offsetAdjustment = 200; // 200% scale
+    if (id === "contact") offsetAdjustment += 20;
+    if (id === "services") offsetAdjustment += 10;
+  } else if (dpr >= 1.75) {
+    offsetAdjustment = 420; // 175% scale
+    if (id === "contact") offsetAdjustment += 543;
+    if (id === "services") offsetAdjustment += 9;
+  } else if (dpr >= 1.5) {
+    offsetAdjustment = 370; // 150% scale
+    if (id === "contact") offsetAdjustment += 420;
+    if (id === "services") offsetAdjustment += 7;
+  } else if (dpr >= 1.25) {
+    offsetAdjustment = 260; // 125% scale (default)
+    if (id === "contact") offsetAdjustment += 280;
+    if (id === "services") offsetAdjustment += 15;
+  }
+
+  console.log(
+    `Navigating to ${id} with offset: ${offsetAdjustment}px (DPR: ${dpr})`
+  );
+
+  window.scrollTo({
+    top: element.offsetTop - offsetAdjustment,
+    behavior: "smooth",
+  });
+
+  setIsOpen(false); // Close mobile menu after clicking
+};
+
 
   return (
     <nav
@@ -75,8 +118,12 @@ const Navbar = () => {
               }`}
             >
               <Phone size={24} />
-              <span className="hidden md:inline text-lg font-medium mx-2">-</span>
-              <span className="hidden md:inline text-lg font-medium">055-2853391</span>
+              <span className="hidden md:inline text-lg font-medium mx-2">
+                -
+              </span>
+              <span className="hidden md:inline text-lg font-medium">
+                055-2853391
+              </span>
             </a>
           </div>
 
@@ -91,7 +138,9 @@ const Navbar = () => {
                 key={id}
                 onClick={() => smoothScrollTo(id)}
                 className={`transition-all ${
-                  isScrolled ? "text-gray-700 hover:text-blue-500" : "text-white hover:text-yellow-400"
+                  isScrolled
+                    ? "text-gray-700 hover:text-blue-500"
+                    : "text-white hover:text-yellow-400"
                 } text-2xl max-lg:text-xl`}
               >
                 {label}
@@ -108,7 +157,11 @@ const Navbar = () => {
             }}
             className="relative flex items-center justify-center cursor-pointer"
           >
-            <img src={logo} alt="Logo" className="w-16 h-16 mb-[1.16rem] object-contain absolute" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="w-16 h-16 mb-[1.16rem] object-contain absolute"
+            />
             <span
               className={`text-lg mt-[2.32rem] font-bold transition-all ${
                 isScrolled ? "text-gray-800" : "text-white"
@@ -125,7 +178,9 @@ const Navbar = () => {
               variant="ghost"
               className={cn(
                 `transition-all ${
-                  isScrolled ? "bg-[#eeeeff] hover:bg-gray-100 text-black" : "bg-transparent text-white"
+                  isScrolled
+                    ? "bg-[#eeeeff] hover:bg-gray-100 text-black"
+                    : "bg-transparent text-white"
                 } border-gray-200 shadow-lg`
               )}
               size="icon"
@@ -139,7 +194,10 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div ref={menuRef} className="md:hidden bg-gray-100 shadow-lg py-2 space-y-2 text-right pr-4">
+        <div
+          ref={menuRef}
+          className="md:hidden bg-gray-100 shadow-lg py-2 space-y-2 text-right pr-4"
+        >
           <button
             onClick={() => smoothScrollTo("home")}
             className="block px-4 py-2 text-gray-700 hover:bg-gray-200 w-full text-right"
